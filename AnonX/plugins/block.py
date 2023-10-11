@@ -1,4 +1,4 @@
-import pyrogram
+
 from pyrogram import filters
 from pyrogram.types import Message
 
@@ -94,10 +94,3 @@ async def sudoers_list(client, message: Message, _):
         return await mystic.edit_text(_["block_5"])
     else:
         return await mystic.edit_text(msg)
-
-
-@app.on_message(pyrogram.filters.forwarded)
-def gjgh(client, m):
-    su = app.get_chat_member(m.chat.id, m.from_user.id).status
-    if str(su) == "ChatMemberStatus.MEMBER":
-        m.delete()
