@@ -36,37 +36,22 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
 
     buttons = [
         [
+            InlineKeyboardButton(text="▷", callback_data=f"ADMIN Resume|{chat_id}"),
+            InlineKeyboardButton(text="II", callback_data=f"ADMIN Pause|{chat_id}"),
+            InlineKeyboardButton(text="☆", callback_data=f"ADMIN add_playlist|{chat_id}"),
+            InlineKeyboardButton(text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"),
+            InlineKeyboardButton(text="▢", callback_data=f"ADMIN Stop|{chat_id}"),
+        ],
+        [
             InlineKeyboardButton(
                 text=f"{played} {bar} {dur}",
                 callback_data="GetTimer",
             )
         ],
-        [
-            InlineKeyboardButton(
-                text="▷",
-                callback_data=f"ADMIN Resume|{chat_id}",
-            ),
-            InlineKeyboardButton(
-                text="II", callback_data=f"ADMIN Pause|{chat_id}"
-            ),
-            InlineKeyboardButton(
-                text="☆", callback_data=f"add_playlist {videoid}"
-            ),
-            InlineKeyboardButton(
-                text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"
-            ),
-            InlineKeyboardButton(
-                text="▢", callback_data=f"ADMIN Stop|{chat_id}"
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT"
-            )
+        [InlineKeyboardButton(text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT")
         ],
     ]
     return buttons
-
 
 def telegram_markup_timer(_, chat_id, played, dur):
     played_sec = time_to_seconds(played)
@@ -96,30 +81,19 @@ def telegram_markup_timer(_, chat_id, played, dur):
 
     buttons = [
         [
+            InlineKeyboardButton(text="▷", callback_data=f"ADMIN Resume|{chat_id}"),
+            InlineKeyboardButton(text="II", callback_data=f"ADMIN Pause|{chat_id}"),
+            InlineKeyboardButton(text="☆", callback_data=f"ADMIN add_playlist|{chat_id}"),
+            InlineKeyboardButton(text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"),
+            InlineKeyboardButton(text="▢", callback_data=f"ADMIN Stop|{chat_id}"),
+        ],
+        [
             InlineKeyboardButton(
                 text=f"{played} {bar} {dur}",
                 callback_data="GetTimer",
             )
         ],
-        [
-            InlineKeyboardButton(
-                text="▷",
-                callback_data=f"ADMIN Resume|{chat_id}",
-            ),
-            InlineKeyboardButton(
-                text="II", callback_data=f"ADMIN Pause|{chat_id}"
-            ),
-            InlineKeyboardButton(
-                text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"
-            ),
-            InlineKeyboardButton(
-                text="▢", callback_data=f"ADMIN Stop|{chat_id}"
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT"
-            )
+        [InlineKeyboardButton(text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT")
         ],
     ]
     return buttons
