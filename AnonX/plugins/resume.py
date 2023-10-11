@@ -1,4 +1,3 @@
-
 from pyrogram import filters
 from pyrogram.types import Message
 from strings.filters import command
@@ -15,7 +14,7 @@ RESUME_COMMAND = get_command("RESUME_COMMAND")
 
 @app.on_message(
     command(RESUME_COMMAND)
-
+    & filters.group
     & ~BANNED_USERS
 )
 @AdminRightsCheck
