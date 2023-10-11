@@ -31,7 +31,7 @@ async def playmode_(client, message: Message, _):
     else:
         Group = None
     playty = await get_playtype(message.chat.id)
-    if playty == "Everyone":
+    if playty == "Admin":
         Playtype = None
     else:
         Playtype = True
