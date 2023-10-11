@@ -31,8 +31,8 @@ async def speedtest_function(client, message):
     loop = asyncio.get_event_loop()
     result = await loop.run_in_executor(None, testspeed, m)
     output = f"""**[ᯓ 𝗦𝗢𝗨𝗥𝗖𝞝 𝙄𝙌 - فەرمانی خێرایی🧑🏻‍💻🖤](t.me/MGIMT)•\n••┉┉┉┉┉┉┉••🝢••┉┉┉┉┉┉┉••\n**
-<u>**•⎆┊کڕیار :**</u>
-**•⎆┊𝙄𝙎𝙋 :** {result['client']['isp']}
+**•⎆┊کڕیار :**
+**•⎆┊ئای سی پی :** {result['client']['isp']}
 **•⎆┊وڵات :** {result['client']['country']}
   
 <u>**•⎆┊سێرڤەر :**</u>
