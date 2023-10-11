@@ -10,8 +10,8 @@ load_dotenv()
 API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
 
-BOT_TOKEN = getenv("BOT_TOKEN", "6357186923:AAF90eA8TND3fZt37R5t_3Zl8paG4e_zdO4")
-PIC_START = getenv("PIC_START")
+BOT_TOKEN = getenv("BOT_TOKEN")
+START_IMG_URL = getenv("START_IMG_URL")
 MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 LOG_GROUP_ID = int(getenv("LOG_GROUP_ID"))
 PROG_ID = list(map(int, getenv("PROG_ID","833360381").split()))
@@ -20,12 +20,13 @@ OWNER_ID = list(map(int, getenv("OWNER_ID", "833360381").split()))
 HEROKU_API_KEY = getenv("HEROKU_API_KEY", None)
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME", None)
 USER_OWNER = getenv("USER_OWNER","IQ7amo")
-UPSTREAM_REPO = getenv("UPSTREAM_REPO", "https://github.com/zzzdevo/zz-bot-zz")
+UPSTREAM_REPO = getenv("UPSTREAM_REPO", "https://github.com/zzzdevo/zz-muk-zz")
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
 GIT_TOKEN = getenv("GIT_TOKEN", None)
+GITHUB_REPO = getenv("GITHUB_REPO", None)
 SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/MGIMT")
 SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/IQSUPP")
-
+SUPPORT_IQ = getenv("SUPPORT_IQ", "@MGIMT")
 SUPPORT_HEHE = SUPPORT_GROUP.split("me/")[1]
 
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", "9999999"))
@@ -54,6 +55,8 @@ CLEANMODE_DELETE_MINS = int(getenv("CLEANMODE_MINS", "12"))
 
 TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", "104857600"))
 TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "1073741824"))
+######
+SET_CMDS = getenv("SET_CMDS", False)
 # https://www.gbmb.org/mb-to-bytes
 
 STRING1 = getenv("STRING_SESSION", None)
@@ -67,50 +70,37 @@ YTDOWNLOADER = 1
 LOG = 2
 LOG_FILE_NAME = "logs.txt"
 adminlist = {}
+bitch = {}
 lyrical = {}
 chatstats = {}
 userstats = {}
 clean = {}
 autoclean = []
+confirmer = {}
 
 
-
-START_IMG_URL = getenv("START_IMG_URL", "PIC_START")
-
-PING_IMG_URL = getenv(
-    "PING_IMG_URL",
-    "PIC_START",
+START_IMG_URL = getenv(
+    "START_IMG_URL", "https://telegra.ph/file/3b03866b49d5dae00ff37.jpg"
 )
-
-PLAYLIST_IMG_URL = "https://graph.org/file/4411bac56526350985417.jpg"
-
-GLOBAL_IMG_URL = "https://graph.org/file/4411bac56526350985417.jpg"
-
-STATS_IMG_URL = getenv("PIC_START")
-
-TELEGRAM_AUDIO_URL = "https://graph.org/file/4411bac56526350985417.jpg"
-
-TELEGRAM_VIDEO_URL = "https://graph.org/file/4411bac56526350985417.jpg"
-
-SOUNCLOUD_IMG_URL = "https://graph.org/file/4411bac56526350985417.jpg"
-
-STREAM_IMG_URL = "https://graph.org/file/4411bac56526350985417.jpg"
-
-YOUTUBE_IMG_URL = "https://graph.org/file/4411bac56526350985417.jpg"
-
+PING_IMG_URL = getenv(
+    "PING_IMG_URL", "https://telegra.ph/file/3b03866b49d5dae00ff37.jpg"
+)
+PLAYLIST_IMG_URL = "https://te.legra.ph/file/4ec5ae4381dffb039b4ef.jpg"
+STATS_IMG_URL = "https://te.legra.ph/file/e906c2def5afe8a9b9120.jpg"
+TELEGRAM_AUDIO_URL = "https://te.legra.ph/file/6298d377ad3eb46711644.jpg"
+TELEGRAM_VIDEO_URL = "https://te.legra.ph/file/6298d377ad3eb46711644.jpg"
+STREAM_IMG_URL = "https://te.legra.ph/file/bd995b032b6bd263e2cc9.jpg"
+SOUNCLOUD_IMG_URL = "https://te.legra.ph/file/bb0ff85f2dd44070ea519.jpg"
+YOUTUBE_IMG_URL = "https://te.legra.ph/file/6298d377ad3eb46711644.jpg"
 SPOTIFY_ARTIST_IMG_URL = "https://te.legra.ph/file/37d163a2f75e0d3b403d6.jpg"
-
 SPOTIFY_ALBUM_IMG_URL = "https://te.legra.ph/file/b35fd1dfca73b950b1b05.jpg"
-
 SPOTIFY_PLAYLIST_IMG_URL = "https://te.legra.ph/file/95b3ca7993bbfaf993dcb.jpg"
+
 
 
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(
-        int(x) * 60**i
-        for i, x in enumerate(reversed(stringt.split(":")))
-    )
+    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
 DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
@@ -118,24 +108,14 @@ SONG_DOWNLOAD_DURATION_LIMIT = int(
     time_to_seconds(f"{SONG_DOWNLOAD_DURATION}:00")
 )
 
-
-if UPSTREAM_REPO:
-    if not re.match("(?:http|https)://", UPSTREAM_REPO):
-        print(
-            "[ERROR] - Your UPSTREAM_REPO url is wrong. Please ensure that it starts with https://"
+if SUPPORT_CHANNEL:
+    if not re.match("(?:http|https)://", SUPPORT_CHANNEL):
+        raise SystemExit(
+            "[ERROR] - Your SUPPORT_CHANNEL url is wrong. Please ensure that it starts with https://"
         )
-        sys.exit()
 
-if PING_IMG_URL:
-    if PING_IMG_URL != "assets/Ping.jpeg":
-        if not re.match("(?:http|https)://", PING_IMG_URL):
-            PING_IMG_URL = getenv("PIC_START")
-
-if START_IMG_URL:
-    if START_IMG_URL != "assets/Ping.jpeg":
-        if not re.match("(?:http|https)://", START_IMG_URL):
-            START_IMG_URL = getenv("PIC_START")
-if MONGO_DB_URI != None:
-    MONGO_DB_URI = MONGO_DB_URI.strip()
-if MONGO_DB_URI == "":
-    MONGO_DB_URI = None
+if SUPPORT_GROUP:
+    if not re.match("(?:http|https)://", SUPPORT_GROUP):
+        raise SystemExit(
+            "[ERROR] - Your SUPPORT_CHAT url is wrong. Please ensure that it starts with https://"
+        )
