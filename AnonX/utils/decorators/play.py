@@ -18,12 +18,12 @@ def PlayWrapper(command):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    "» البوت تحت الصيانه بعض الوقت يرجى الانتظار او زريادة فريق الدعم لمهعرفت السبب."
+                    "Bot is under maintenance. Please wait for some time..."
                 )
         if PRIVATE_BOT_MODE == str(True):
             if not await is_served_private_chat(message.chat.id):
                 await message.reply_text(
-                    "**بوت الميوز خاص**\n\nفقط للمجموعات المصرح بها من قبل المطور."
+                    "**Private Music Bot**\n\nOnly for authorized chats from the owner. Ask my owner to allow your chat first."
                 )
                 return await app.leave_chat(message.chat.id)
         if await is_commanddelete_on(message.chat.id):
@@ -64,7 +64,7 @@ def PlayWrapper(command):
                     caption=_["playlist_1"],
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
-        if message.command[0][0] == "c" or message.command[0][0] == "ک":
+        if message.command[0][0] == "c":
             chat_id = await get_cmode(message.chat.id)
             if chat_id is None:
                 return await message.reply_text(_["setting_12"])
