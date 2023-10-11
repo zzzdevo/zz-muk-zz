@@ -28,7 +28,9 @@ SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/MGIMT")
 SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/IQSUPP")
 SUPPORT_IQ = getenv("SUPPORT_IQ", "@MGIMT")
 SUPPORT_HEHE = SUPPORT_GROUP.split("me/")[1]
+SUPPORT = getenv("SUPPORT_GROUP", "https://t.me/xv7amo")
 
+#######
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", "9999999"))
 SONG_DOWNLOAD_DURATION = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "180"))
 
