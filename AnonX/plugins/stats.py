@@ -3,6 +3,7 @@ import platform
 from sys import version as pyver
 
 import psutil
+from ntgcalls import __version__ as ngtgver
 from pyrogram import __version__ as pyrover
 from pyrogram import filters
 from pyrogram.errors import MessageIdInvalid
@@ -38,7 +39,7 @@ STATS_COMMAND = get_command("STATS_COMMAND")
 
 @app.on_message(
     filters.command(STATS_COMMAND)
-    
+    & filters.group
     & ~BANNED_USERS
 )
 @language
@@ -55,7 +56,7 @@ async def stats_global(client, message: Message, _):
 
 @app.on_message(
     filters.command(GSTATS_COMMAND)
-    
+    & filters.group
     & ~BANNED_USERS
 )
 @language
@@ -104,7 +105,7 @@ async def gstats_global(client, message: Message, _):
         vidid,
     ) = await YouTube.details(videoid, True)
     title = title.title()
-    final = f"افضل قوائم التشغيل في {MUSIC_BOT_NAME}\n\n**عنوان :** {title}\n\n تشغيل** {co} **الوقت."
+    final = f"Top Most Played Track on {MUSIC_BOT_NAME}\n\n**Title:** {title}\n\nPlayed** {co} **times"
     upl = get_stats_markup(
         _, True if message.from_user.id in SUDOERS else False
     )
@@ -178,9 +179,9 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
                 details = stats.get(items)
                 title = (details["title"][:35]).title()
                 if items == "telegram":
-                    msg += f"🍒 [𓏺𝙎𝙊𝙐𝙍𝘾𝞝 𝙃𝘼𝙔𝘼](https://t.me/HL_BG) ** التشفيل {count} الوقت**\n\n"
+                    msg += f"🔗[Telegram Files and Audios](https://t.me/telegram) ** played {count} times**\n\n"
                 else:
-                    msg += f"📌 [{title}](https://www.youtube.com/watch?v={items}) ** ᴩʟᴀʏᴇᴅ {count} ᴛɪᴍᴇs**\n\n"
+                    msg += f"🔗 [{title}](https://www.youtube.com/watch?v={items}) ** played {count} times**\n\n"
 
             temp = (
                 _["gstats_4"].format(
@@ -222,7 +223,7 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
             except:
                 continue
             limit += 1
-            msg += f"💖 `{extract}` ᴩʟᴀʏᴇᴅ {count} ᴛɪᴍᴇs ᴏɴ ʙᴏᴛ.\n\n"
+            msg += f"🔗`{extract}` played {count} times on bot.\n\n"
         temp = (
             _["gstats_5"].format(limit, MUSIC_BOT_NAME)
             if what == "Chats"
@@ -266,27 +267,27 @@ async def overall_stats(client, CallbackQuery, _):
     song = config.SONG_DOWNLOAD_DURATION
     play_duration = config.DURATION_LIMIT_MIN
     if config.AUTO_LEAVING_ASSISTANT == str(True):
-        ass = "ʏᴇs"
+        ass = "Yes"
     else:
-        ass = "ɴᴏ"
+        ass = "No"
     cm = config.CLEANMODE_DELETE_MINS
-    text = f"""**ʙᴏᴛ's sᴛᴀᴛs ᴀɴᴅ ɪɴғᴏ:**
+    text = f"""**ئامار و زانیارییەکان:**
 
-**الوحدات:** {mod}
-**القروبات والقنوات:** {served_chats} 
-**المستخدمين:** {served_users} 
-**المحظورين:** {blocked} 
-**المطورين:** {sudoers} 
+**فەرمان:** {mod}
+**گرووپەکان:** {served_chats} 
+**بەکارهێنەر:** {served_users} 
+**بلۆککراوەکان:** {blocked} 
+**گەشەپێدەر:** {sudoers} 
     
-**الاستفسارات:** {total_queries} 
-**المساعدين:** {assistant}
-**التوقفات:** {ass}
-**وضع النظيف:** {cm} ᴍɪɴᴜᴛᴇs
+**کۆی گشتی ریزکراوەکان:** {total_queries} 
+**یاریدەدەر:** {assistant}
+**دەرچوونی خودکاری یاریدەدەر:** {ass}
+**ماوەی دۆخی پاککردنەوە:** {cm} Mins
 
-**اقصى مده للتشغيل:** {play_duration} ᴍɪɴᴜᴛᴇs
-**اقصى مده للتنزيل:** {song} ᴍɪɴᴜᴛᴇs
-**قائمة التشغيل:** {playlist_limit}
-**حد مدة تشغيل قائمة التشغيل:** {fetch_playlist}"""
+**سنووری ماوەی پەخشکردن:** {play_duration} Mins
+**سنووری داگرتنی گۆرانی:** {song} Mins
+**سێرڤەری لیستی پەخشکردن:** {playlist_limit}
+**پەخشکردنی لیست:** {fetch_playlist}"""
     med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
     try:
         await CallbackQuery.edit_message_media(
@@ -303,7 +304,7 @@ async def overall_stats(client, CallbackQuery, _):
 async def overall_stats(client, CallbackQuery, _):
     if CallbackQuery.from_user.id not in SUDOERS:
         return await CallbackQuery.answer(
-            "ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀs.", show_alert=True
+            "Only for Sudo Users", show_alert=True
         )
     callback_data = CallbackQuery.data.strip()
     what = callback_data.split(None, 1)[1]
@@ -321,14 +322,14 @@ async def overall_stats(client, CallbackQuery, _):
     t_core = psutil.cpu_count(logical=True)
     ram = (
         str(round(psutil.virtual_memory().total / (1024.0**3)))
-        + " ɢʙ"
+        + " GB"
     )
     try:
         cpu_freq = psutil.cpu_freq().current
         if cpu_freq >= 1000:
-            cpu_freq = f"{round(cpu_freq / 1000, 2)}ɢʜᴢ"
+            cpu_freq = f"{round(cpu_freq / 1000, 2)}GHz"
         else:
-            cpu_freq = f"{round(cpu_freq, 2)}ᴍʜᴢ"
+            cpu_freq = f"{round(cpu_freq, 2)}MHz"
     except:
         cpu_freq = "Unable to Fetch"
     hdd = psutil.disk_usage("/")
@@ -355,40 +356,35 @@ async def overall_stats(client, CallbackQuery, _):
     total_queries = await get_queries()
     blocked = len(BANNED_USERS)
     sudoers = len(await get_sudoers())
-    text = f""" **ʙᴏᴛ's sᴛᴀᴛs ᴀɴᴅ ɪɴғᴏ:**
+    text = f""" **Bot's Stats and Information:**
 
-       <b><u>المكونات</b><u/>
-**الوحدات:** {mod}
-**المنصه:** {sc}
-**الراب:** {ram}
-**النوى الماديه:** {p_core}
-**المجموع:** {t_core}
-**المعالج:** {cpu_freq}
+**Imported Modules:** {mod}
+**Platform:** {sc}
+**Ram:** {ram}
+**Physical Cores:** {p_core}
+**Total Cores:** {t_core}
+**Cpu Frequency:** {cpu_freq}
 
-       <b><u>النظام</b><u/>
-**البايثون :** {pyver.split()[0]}
-**البايروجرام :** {pyrover}
-**ᴩʏ-ᴛɢᴄᴀʟʟs :** {pytgver}
+**Python Version :** {pyver.split()[0]}
+**Pyrogram Version :** {pyrover}
+**Py-TgCalls Version :** {pytgver}
+**N-Tgcalls Version :** {ngtgver}
+**Storage Avail:** {total[:4]} GiB
+**Storage Used:** {used[:4]} GiB
+**Storage Left:** {free[:4]} GiB
 
-        <b><u>الذاكره</b><u/>
-**المتاح:** {total[:4]} GiB
-**المستخم:** {used[:4]} GiB
-**ғʀᴇᴇ:** {free[:4]} GiB
-        
-      <b><u>الاحصائيات العامه</b><u/>
-**الدردشه:** {served_chats} 
-**المستخدمين:** {served_users} 
-**المحظورين:** {blocked} 
-**المطورين:** {sudoers} 
+**Served Chats:** {served_chats} 
+**Served Users:** {served_users} 
+**Blocked Users:** {blocked} 
+**Sudo Users:** {sudoers} 
 
-      <b><u>ᴍᴏɴɢᴏ ᴅᴀᴛᴀʙᴀsᴇ</b><u/>
-**مدة التشغيل:** {mongouptime[:4]} Days
-**المساحه:** {datasize[:6]} Mb
-**الذاكره:** {storage} Mb
-**المجموعه:** {collections}
-**المفاتيح:** {objects}
-**الاستفسارات:** `{query}`
-**استفسارات البوت:** `{total_queries} `
+**Mongo Uptime:** {mongouptime[:4]} Days
+**Total DB Size:** {datasize[:6]} Mb
+**Total DB Storage:** {storage} Mb
+**Total DB Collections:** {collections}
+**Total DB Keys:** {objects}
+**Total DB Queries:** `{query}`
+**Total Bot Queries:** `{total_queries} `
     """
     med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
     try:
