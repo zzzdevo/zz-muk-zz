@@ -7,7 +7,7 @@
 # Bot Commands
 PING_COMMAND : ["ping", "پینگ"]
 START_COMMAND : ["start", "/start", "دەستپێکردن"]
-HELP_COMMAND : ["help", "یارمەتی"]
+HELP_COMMAND : ["help", "فەرمانەکان"]
 SETTINGS_COMMAND : ["settings", "/settings", "ڕێکبەندەکان"]
 RELOAD_COMMAND : ["admincache", "reload", "/reload", "ڕ"]
 GSTATS_COMMAND : ["gstats", "ئاماری گشتی"]
@@ -16,8 +16,6 @@ LANGUAGE_COMMAND : ["lang", "language", "زمان"]
 
 # Play Commands
 PLAY_COMMAND : ["play", "vplay", "cplay", "cvplay", "playforce", "vplayforce", "cplayforce", "cvplayforce", "/play", "/vplay", "cplay", "g", "گ", "پلەی", "video", "پ کەناڵ","gorani","ڤیدیو","سوڕەتی","سورەتی","سورەت","سوڕەت"]
-PLAY_COMMAND_chh : ["ڤیدیۆ", "کەناڵ", "پەخشی کەناڵ", "/cplay","cplay","vplay","/vplay"]
-STOP_COMMAND_chh : ["وەستان","ڕاگرتن","stop","Stop","/stop"]
 PLAYMODE_COMMAND : ["playmode", "دۆخی پەخش", "/playmode"]
 CHANNELPLAY_COMMAND : ["channelplay"]
 STREAM_COMMAND : ["stream", "cstream", "streamforce", "لایڤ"]
@@ -31,9 +29,6 @@ DELETEPLAYLIST_COMMAND : ["deleteplaylist", "سڕینەوەی لیست"]
 QUEUE_COMMAND : ["queue","cqueue", "player", "cplayer", "playing", "cplaying","ڕیزکراو"]
 SONG_COMMAND : ["song", "داگرتن", "یوتوب"]
 LYRICS_COMMAND : ["lyrics", "وشە", "/lyrics"]
-TAG_COMMAND : ["tag", "تاگ", "Tag"]
-TAG_COMMAND_STOP : ["وەستانی تاگ"]
-AUTOEND_COMMAND : ["autoend", "دەرچوون"]
 
 
 # Admin Commands
@@ -93,6 +88,18 @@ UNAUTHORIZE_COMMAND : ["unauthorize"]
 AUTHORIZED_COMMAND : ["authorized"]
 
 #Block Users Command
+BLOCK_COMMAND : ["block"]
+UNBLOCK_COMMAND : ["unblock"]
+BLOCKED_COMMAND : ["blockedusers"]
+
+#sPEEDTEST
+SPEEDTEST_COMMAND : ["speedtest"]
+
+#Voice chat commands
+ACTIVEVC_COMMAND : ["activevoice"]
+ACTIVEVIDEO_COMMAND : ["activevideo"]
+
+#Block Users Command
 BLOCK_COMMAND : ["block", "بلۆک", "قەدەغەکردن"]
 UNBLOCK_COMMAND : ["unblock","لادانی بلۆک"]
 BLOCKED_COMMAND : ["blockedusers", "بلۆککراوەکان"]
@@ -106,4 +113,4 @@ ACTIVEVIDEO_COMMAND : ["activevideo", "چالاکی ڤیدیۆ"]
 #Gban Commands
 GBAN_COMMAND : ["gban", "دەرکردنی گشتی"]
 UNGBAN_COMMAND : ["ungban", "لادانی گشتی"]
-GBANNED_COMMAND : ["gbannedusers", "سفڕکردنەوە"]
+GBANNED_COMMAND : ["gbannedusers", "باندکراوەکان"]
