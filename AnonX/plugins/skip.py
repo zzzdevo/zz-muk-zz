@@ -1,16 +1,6 @@
-#
-# Copyright (C) 2021-2022 by TeamYukki@Github, < https://github.com/TeamYukki >.
-#
-# This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
-#
-# All rights reserved.
-
-from strings.filters import command
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
-
+from strings.filters import command
 import config
 from config import BANNED_USERS
 from strings import get_command
@@ -18,7 +8,7 @@ from AnonX import YouTube, app
 from AnonX.core.call import Anon
 from AnonX.misc import db
 from AnonX.utils.database import get_loop
-from AnonX.utils.decorators import AdminRightsCheckCB
+from AnonX.utils.decorators import AdminRightsCheck
 from AnonX.utils.inline.play import (stream_markup,
                                           telegram_markup)
 from AnonX.utils.stream.autoclear import auto_clean
@@ -30,10 +20,10 @@ SKIP_COMMAND = get_command("SKIP_COMMAND")
 
 @app.on_message(
     command(SKIP_COMMAND)
-   
+    & filters.group
     & ~BANNED_USERS
 )
-@AdminRightsCheckCB
+@AdminRightsCheck
 async def skip(cli, message: Message, _, chat_id):
     if not len(message.command) < 2:
         loop = await get_loop(chat_id)
