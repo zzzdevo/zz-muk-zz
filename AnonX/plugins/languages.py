@@ -1,9 +1,9 @@
 from pykeyboard import InlineKeyboard
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, Message
-
+from strings.filters import command
 from config import BANNED_USERS
-from strings import get_command, get_string
+from strings import get_command, get_string, languages_present
 from AnonX import app
 from AnonX.utils.database import get_lang, set_lang
 from AnonX.utils.decorators import (ActualAdminCB, language,
@@ -13,14 +13,23 @@ from AnonX.utils.decorators import (ActualAdminCB, language,
 
 
 def lanuages_keyboard(_):
-    keyboard = InlineKeyboard(row_width=2)
-    keyboard.row(
-        InlineKeyboardButton(
-            text="🇦🇺 ᴇɴɢʟɪsʜ 🇦🇺",
-            callback_data=f"languages:en",
-        ),
+    keyboard = InlineKeyboard(row_width=3)
+    keyboard.add(
+        *[
+            (
+                InlineKeyboardButton(
+                    text=languages_present[i],
+                    callback_data=f"languages:{i}",
+                )
+            )
+            for i in languages_present
+        ]
     )
     keyboard.row(
+        InlineKeyboardButton(
+            text=_["BACK_BUTTON"],
+            callback_data=f"settingsback_helper",
+        ),
         InlineKeyboardButton(
             text=_["CLOSE_BUTTON"], callback_data=f"close"
         ),
@@ -32,8 +41,7 @@ LANGUAGE_COMMAND = get_command("LANGUAGE_COMMAND")
 
 
 @app.on_message(
-    filters.command(LANGUAGE_COMMAND)
-    & filters.group
+    command(LANGUAGE_COMMAND)
     & ~BANNED_USERS
 )
 @language
@@ -67,16 +75,16 @@ async def language_markup(client, CallbackQuery, _):
     old = await get_lang(CallbackQuery.message.chat.id)
     if str(old) == str(langauge):
         return await CallbackQuery.answer(
-            "انت فعلا تستخدم هذه الللغه في هذه الدردشه.", show_alert=True
+            "You're already on same language", show_alert=True
         )
     try:
         _ = get_string(langauge)
         await CallbackQuery.answer(
-            "تم تحديد اللغه بنجاح.", show_alert=True
+            "Successfully changed your language.", show_alert=True
         )
     except:
         return await CallbackQuery.answer(
-            "فشل في تغيير اللغه اما انها غير موجوده او قيد الصيانه.",
+            "Failed to change language or Language under update.",
             show_alert=True,
         )
     await set_lang(CallbackQuery.message.chat.id, langauge)
