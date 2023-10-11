@@ -61,10 +61,7 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
         ],
         [
             InlineKeyboardButton(
-                text="⧉ 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌", url="https://t.me/MGIMT"
-            ),
-            InlineKeyboardButton(
-                text="• گرووپی بۆت •", url="https://t.me/IQSUPP"
+                text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT"
             )
         ],
     ]
@@ -121,15 +118,11 @@ def telegram_markup_timer(_, chat_id, played, dur):
         ],
         [
             InlineKeyboardButton(
-                text="⧉ 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌", url="https://t.me/MGIMT"
-            ),
-            InlineKeyboardButton(
-                text="• گرووپی بۆت •", url="https://t.me/IQSUPP"
+                text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT"
             )
         ],
     ]
     return buttons
-
 
 def stream_markup(_, videoid, chat_id):
     buttons = [
@@ -153,10 +146,7 @@ def stream_markup(_, videoid, chat_id):
         ],
         [
             InlineKeyboardButton(
-                text="⧉ 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌", url="https://t.me/MGIMT"
-            ),
-            InlineKeyboardButton(
-                text="• گرووپی بۆت •", url="https://t.me/IQSUPP"
+                text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT"
             )
         ],
     ]
@@ -182,10 +172,7 @@ def telegram_markup(_, chat_id):
         ],
         [
             InlineKeyboardButton(
-                text="⧉ 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌", url="https://t.me/MGIMT"
-            ),
-            InlineKeyboardButton(
-                text="• گرووپی بۆت •", url="https://t.me/IQSUPP"
+                text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT"
             )
         ],
     ]
@@ -268,9 +255,6 @@ def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
     return buttons
 
 
-## Slider Query Markup
-
-
 def slider_markup(
     _, videoid, user_id, query, query_type, channel, fplay
 ):
@@ -309,7 +293,7 @@ close_keyboard = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="✯ ᴄʟᴏsᴇ ✯", callback_data="close"
+                        text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT"
                     )
                 ]    
             ]
@@ -340,10 +324,7 @@ def queue_markup(_, videoid, chat_id):
         ],
         [
             InlineKeyboardButton(
-                text="⧉ 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌", url="https://t.me/MGIMT"
-            ),
-            InlineKeyboardButton(
-                text="• گرووپی بۆت •", url="https://t.me/IQSUPP"
+                text="✯ کەناڵی بۆتەکان ✯", url=f"https://t.me/MGIMT"
             )
         ],
     ]
