@@ -239,7 +239,7 @@ async def without_Admin_rights(client, CallbackQuery, _):
         else:
             Group = None
         playty = await get_playtype(CallbackQuery.message.chat.id)
-        if playty == "Everyone":
+        if playty == "Admin":
             Playtype = None
         else:
             Playtype = True
@@ -358,7 +358,7 @@ async def playmode_ans(client, CallbackQuery, _):
         else:
             Direct = None
         playty = await get_playtype(CallbackQuery.message.chat.id)
-        if playty == "Everyone":
+        if playty == "Admin":
             Playtype = None
         else:
             Playtype = True
@@ -387,7 +387,7 @@ async def playmode_ans(client, CallbackQuery, _):
         else:
             Group = None
         playty = await get_playtype(CallbackQuery.message.chat.id)
-        if playty == "Everyone":
+        if playty == "Admin":
             Playtype = False
         else:
             Playtype = True
@@ -398,7 +398,7 @@ async def playmode_ans(client, CallbackQuery, _):
         except:
             pass
         playty = await get_playtype(CallbackQuery.message.chat.id)
-        if playty == "Everyone":
+        if playty == "Admin":
             await set_playtype(CallbackQuery.message.chat.id, "Admin")
             Playtype = False
         else:
