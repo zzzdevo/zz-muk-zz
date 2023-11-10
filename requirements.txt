@@ -10,10 +10,10 @@ lyricsgenius
 motor
 pillow
 psutil
-py-tgcalls==1.0.0.rc4
+py-tgcalls
 pykeyboard
 pyromod
-pyrogram
+git+https://github.com/PyrogramMod/PyrogramMod@main
 python-dotenv
 pyyaml
 requests
