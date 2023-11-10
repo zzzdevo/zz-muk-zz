@@ -8,8 +8,11 @@ from io import StringIO
 from time import time
 
 from pyrogram import filters
-from pyrogram.types import (InlineKeyboardButton,
-                            InlineKeyboardMarkup, Message)
+from pyrogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
 
 from AnonX import app
 from AnonX.misc import SUDOERS
@@ -29,6 +32,12 @@ async def edit_or_reply(msg: Message, **kwargs):
     await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
+@app.on_edited_message(
+    filters.command("eval")
+    & SUDOERS
+    & ~filters.forwarded
+    & ~filters.via_bot
+)
 @app.on_message(
     filters.command("eval")
     & SUDOERS
@@ -38,7 +47,7 @@ async def edit_or_reply(msg: Message, **kwargs):
 async def executor(client, message):
     if len(message.command) < 2:
         return await edit_or_reply(
-            message, text="**ᴡʜᴀᴛ ʏᴏᴜ ᴡᴀɴɴᴀ ᴇxᴇᴄᴜᴛᴇ ʙᴀʙʏ ?**"
+            message, text="__Nigga, give me some command to execute.__"
         )
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
@@ -78,7 +87,7 @@ async def executor(client, message):
                 [
                     InlineKeyboardButton(
                         text="⏳",
-                        callback_data=f"runtime {t2-t1} Seconds",
+                        callback_data=f"runtime {t2 - t1} Seconds",
                     )
                 ]
             ]
@@ -98,7 +107,7 @@ async def executor(client, message):
                 [
                     InlineKeyboardButton(
                         text="⏳",
-                        callback_data=f"runtime {round(t2-t1, 3)} Seconds",
+                        callback_data=f"runtime {round(t2 - t1, 3)} Seconds",
                     ),
                     InlineKeyboardButton(
                         text="🗑",
@@ -126,7 +135,7 @@ async def forceclose_command(_, CallbackQuery):
     if CallbackQuery.from_user.id != int(user_id):
         try:
             return await CallbackQuery.answer(
-                "» ɪᴛ'ʟʟ ʙᴇ ʙᴇᴛᴛᴇʀ ɪғ ʏᴏᴜ sᴛᴀʏ ɪɴ ʏᴏᴜʀ ʟɪᴍɪᴛs ʙᴀʙʏ.", show_alert=True
+                "You're not allowed to close this.", show_alert=True
             )
         except:
             return
@@ -137,6 +146,12 @@ async def forceclose_command(_, CallbackQuery):
         return
 
 
+@app.on_edited_message(
+    filters.command("sh")
+    & SUDOERS
+    & ~filters.forwarded
+    & ~filters.via_bot
+)
 @app.on_message(
     filters.command("sh")
     & SUDOERS
@@ -146,7 +161,7 @@ async def forceclose_command(_, CallbackQuery):
 async def shellrunner(client, message):
     if len(message.command) < 2:
         return await edit_or_reply(
-            message, text="**ᴇxᴀᴍᴩʟᴇ :**\n/sh git pull"
+            message, text="**Usage:**\n/sh git pull"
         )
     text = message.text.split(None, 1)[1]
     if "\n" in text:
@@ -167,7 +182,7 @@ async def shellrunner(client, message):
                 await edit_or_reply(
                     message, text=f"**ERROR:**\n```{err}```"
                 )
-            output += f"**{code}**\n"
+            output += f"**{x}**\n"
             output += process.stdout.read()[:-1].decode("utf-8")
             output += "\n"
     else:
@@ -201,7 +216,7 @@ async def shellrunner(client, message):
             await client.send_document(
                 message.chat.id,
                 "output.txt",
-                reply_to_message_id=message.message_id,
+                reply_to_message_id=message.id,
                 caption="`Output`",
             )
             return os.remove("output.txt")
