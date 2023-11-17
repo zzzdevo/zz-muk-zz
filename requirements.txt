@@ -13,7 +13,7 @@ psutil
 py-tgcalls
 pykeyboard
 pyromod
-pyrogram
+git+https://github.com/PyrogramMod/PyrogramMod@main
 python-dotenv
 pyyaml
 requests
