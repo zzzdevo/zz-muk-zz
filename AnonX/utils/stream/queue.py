@@ -1,7 +1,7 @@
 from typing import Union
 
 from config import autoclean, chatstats, userstats
-from config.config import time_to_seconds
+from config import time_to_seconds
 from AnonX.misc import db
 
 
@@ -30,11 +30,13 @@ async def put_queue(
         "chat_id": original_chat_id,
         "file": file,
         "vidid": vidid,
+        "user_id": user_id,
         "seconds": duration_in_seconds,
         "played": 0,
     }
     if forceplay:
-        if check := db.get(chat_id):
+        check = db.get(chat_id)
+        if check:
             check.insert(0, put)
         else:
             db[chat_id] = []
@@ -76,7 +78,8 @@ async def put_queue_index(
         "played": 0,
     }
     if forceplay:
-        if check := db.get(chat_id):
+        check = db.get(chat_id)
+        if check:
             check.insert(0, put)
         else:
             db[chat_id] = []
