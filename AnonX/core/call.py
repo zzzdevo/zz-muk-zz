@@ -200,7 +200,7 @@ class Call(PyTgCalls):
                 get = await app.get_chat_member(chat_id, userbot.id)
             except ChatAdminRequired:
                 raise AssistantErr(_["call_1"])
-            if get.status == ChatMemberStatus.BANNED or get.status == ChatMemberStatus.LEFT:
+            if get.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
                 raise AssistantErr(
                     _["call_2"].format(userbot.username, userbot.id)
                 )
