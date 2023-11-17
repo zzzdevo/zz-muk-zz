@@ -54,7 +54,9 @@ async def stream(
                     duration_sec,
                     thumbnail,
                     vidid,
-                ) = await YouTube.details(search, not spotify)
+                ) = await YouTube.details(
+                    search, False if spotify else True
+                )
             except:
                 continue
             if str(duration_min) == "None":
@@ -87,7 +89,7 @@ async def stream(
                     )
                 except:
                     raise AssistantErr(_["play_16"])
-                await Yukki.join_call(
+                await Anon.join_call(
                     chat_id, original_chat_id, file_path, video=status
                 )
                 await put_queue(
@@ -117,19 +119,23 @@ async def stream(
                 db[chat_id][0]["markup"] = "stream"
         if count == 0:
             return
-        link = await Anonbin(msg)
-        lines = msg.count("\n")
-        car = os.linesep.join(msg.split(os.linesep)[:17]) if lines >= 17 else msg
-        carbon = await Carbon.generate(
-            car, randint(100, 10000000)
-        )
-        upl = close_markup(_)
-        return await app.send_photo(
-            original_chat_id,
-            photo=carbon,
-            caption=_["playlist_18"].format(link, position),
-            reply_markup=upl,
-        )
+        else:
+            link = await Anonbin(msg)
+            lines = msg.count("\n")
+            if lines >= 17:
+                car = os.linesep.join(msg.split(os.linesep)[:17])
+            else:
+                car = msg
+            carbon = await Carbon.generate(
+                car, randint(100, 10000000)
+            )
+            upl = close_markup(_)
+            return await app.send_photo(
+                original_chat_id,
+                photo=carbon,
+                caption=_["playlist_18"].format(link, position),
+                reply_markup=upl,
+            )
     elif streamtype == "youtube":
         link = result["link"]
         vidid = result["vidid"]
