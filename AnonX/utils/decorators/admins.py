@@ -4,14 +4,11 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from AnonX import app
 from AnonX.misc import SUDOERS, db
 from AnonX.utils.database import (
-    get_authuser_names,
-    get_cmode,
-    get_lang,
-    get_upvote_count,
-    is_active_chat,
+    get_authuser_names, get_cmode,
+    get_lang, is_active_chat,
+    is_commanddelete_on,
     is_maintenance,
-    is_nonadmin_chat,
-    is_skipmode,
+    is_nonadmin_chat
 )
 from config import SUPPORT_GROUP, adminlist, confirmer
 from strings import get_string
