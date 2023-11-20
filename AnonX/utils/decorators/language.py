@@ -1,7 +1,6 @@
-from strings import get_string
 from AnonX.misc import SUDOERS
-from AnonX.utils.database import (get_lang, is_commanddelete_on,
-                                       is_maintenance)
+from AnonX.utils.database import get_lang, is_maintenance
+from strings import get_string
 
 
 def language(mystic):
@@ -9,13 +8,14 @@ def language(mystic):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    "Bot is under maintenance. Please wait for some time..."
+                    text=f"ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ @IQSUPP ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
+                    disable_web_page_preview=True,
                 )
-        if await is_commanddelete_on(message.chat.id):
-            try:
-                await message.delete()
-            except:
-                pass
+        try:
+            await message.delete()
+        except:
+            pass
+
         try:
             language = await get_lang(message.chat.id)
             language = get_string(language)
@@ -31,7 +31,7 @@ def languageCB(mystic):
         if await is_maintenance() is False:
             if CallbackQuery.from_user.id not in SUDOERS:
                 return await CallbackQuery.answer(
-                    "Bot is under maintenance. Please wait for some time...",
+                    f"ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
                     show_alert=True,
                 )
         try:
