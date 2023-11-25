@@ -1,11 +1,8 @@
 import re
-
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from youtubesearchpython.__future__ import VideosSearch
-
 import config
-
 
 class SpotifyAPI:
     def __init__(self):
@@ -13,10 +10,8 @@ class SpotifyAPI:
         self.client_id = config.SPOTIFY_CLIENT_ID
         self.client_secret = config.SPOTIFY_CLIENT_SECRET
         if config.SPOTIFY_CLIENT_ID and config.SPOTIFY_CLIENT_SECRET:
-            self.client_credentials_manager = (
-                SpotifyClientCredentials(
-                    self.client_id, self.client_secret
-                )
+            self.client_credentials_manager = SpotifyClientCredentials(
+                self.client_id, self.client_secret
             )
             self.spotify = spotipy.Spotify(
                 client_credentials_manager=self.client_credentials_manager
@@ -25,10 +20,7 @@ class SpotifyAPI:
             self.spotify = None
 
     async def valid(self, link: str):
-        if re.search(self.regex, link):
-            return True
-        else:
-            return False
+        return bool(re.search(self.regex, link))
 
     async def track(self, link: str):
         track = self.spotify.track(link)
