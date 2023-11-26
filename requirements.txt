@@ -11,7 +11,7 @@ pillow
 psutil
 py-tgcalls
 pykeyboard
-pyrogram
+git+https://github.com/PyrogramMod/PyrogramMod@main
 pyromod
 python-dotenv
 pyyaml
