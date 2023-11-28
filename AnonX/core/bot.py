@@ -19,7 +19,7 @@ import config
 from ..logging import LOGGER
 
 
-class YukkiBot(Client):
+class AnonXBot(Client):
     def __init__(self):
         LOGGER(__name__).info("Starting Bot")
         super().__init__(
