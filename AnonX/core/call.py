@@ -1,5 +1,3 @@
-
-
 import asyncio
 from datetime import datetime, timedelta
 from typing import Union
@@ -52,7 +50,7 @@ async def _clear_(chat_id):
 class Call(PyTgCalls):
     def __init__(self):
         self.userbot1 = Client(
-            "YukkiString1",
+            "User1",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING1),
@@ -62,7 +60,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot2 = Client(
-            "YukkiString2",
+            "User2",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
@@ -72,7 +70,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot3 = Client(
-            "YukkiString3",
+            "User3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
@@ -82,7 +80,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot4 = Client(
-            "YukkiString4",
+            "User4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
@@ -92,7 +90,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot5 = Client(
-            "YukkiString5",
+            "User5",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
@@ -173,13 +171,13 @@ class Call(PyTgCalls):
                 file_path,
                 audio_parameters=audio_stream_quality,
                 video_parameters=video_stream_quality,
-                additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
+                additional_ffmpeg_parameters=f"-ss {to_seek} -t {duration}",
             )
             if mode == "video"
             else AudioPiped(
                 file_path,
                 audio_parameters=audio_stream_quality,
-                additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
+                additional_ffmpeg_parameters=f"-ss {to_seek} -t {duration}",
             )
         )
         await assistant.change_stream(chat_id, stream)
@@ -202,7 +200,7 @@ class Call(PyTgCalls):
                 get = await app.get_chat_member(chat_id, userbot.id)
             except ChatAdminRequired:
                 raise AssistantErr(_["call_1"])
-            if get.status == ChatMemberStatus.BANNED or get.status == ChatMemberStatus.LEFT:
+            if get.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
                 raise AssistantErr(
                     _["call_2"].format(userbot.username, userbot.id)
                 )
@@ -290,7 +288,7 @@ class Call(PyTgCalls):
                 )
             except Exception as e:
                 raise AssistantErr(
-                    "**No Active Voice Chat Found**\n\nPlease make sure group's voice chat is enabled. If already enabled, please end it and start fresh voice chat again and if the problem continues, try /restart"
+                    "**هیچ تێلێکی چالاك نەدۆزرایەوە\n\nدڵنیابە کە تێل کراوەتەوە گەر کێشەکە بەردەوام بوو تێل دابخە و بیکەوە یان رێستارت بکە /restart**"
                 )
         except AlreadyJoinedError:
             raise AssistantErr(
@@ -574,7 +572,7 @@ class Call(PyTgCalls):
         @self.three.on_stream_end()
         @self.four.on_stream_end()
         @self.five.on_stream_end()
-        async def stream_end_handler1(client, update: Update):
+        async def stream_end_handler(client, update: Update):
             if not isinstance(update, StreamAudioEnded):
                 return
             await self.change_stream(client, update.chat_id)
