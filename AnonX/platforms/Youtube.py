@@ -1,21 +1,20 @@
 #
-# Copyright (C) 2021-present by TeamYukki@Github, < https://github.com/TeamYukki >.
+# Copyright (C) 2021-2022 by TeamYukki@Github, < https://github.com/TeamYukki >.
 #
 # This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
 # and is released under the "GNU v3.0 License Agreement".
 # Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
 #
 # All rights reserved.
-#
 
 import asyncio
 import os
 import re
 from typing import Union
 
-from pyrogram.enums import MessageEntityType
+import aiohttp
+import yt_dlp
 from pyrogram.types import Message
-from yt_dlp import YoutubeDL
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
@@ -56,7 +55,10 @@ class YouTubeAPI:
     ):
         if videoid:
             link = self.base + link
-        return bool(re.search(self.regex, link))
+        if re.search(self.regex, link):
+            return True
+        else:
+            return False
 
     async def url(self, message_1: Message) -> Union[str, None]:
         messages = [message_1]
@@ -70,15 +72,17 @@ class YouTubeAPI:
                 break
             if message.entities:
                 for entity in message.entities:
-                    if entity.type == MessageEntityType.URL:
+                    if entity.type == "url":
                         text = message.text or message.caption
                         offset, length = entity.offset, entity.length
                         break
             elif message.caption_entities:
                 for entity in message.caption_entities:
-                    if entity.type == MessageEntityType.TEXT_LINK:
+                    if entity.type == "text_link":
                         return entity.url
-        return None if offset in (None,) else text[offset : offset + length]
+        if offset in (None,):
+            return None
+        return text[offset : offset + length]
 
     async def details(
         self, link: str, videoid: Union[bool, str] = None
@@ -146,13 +150,16 @@ class YouTubeAPI:
             "yt-dlp",
             "-g",
             "-f",
-            "best",
+            "best[height<=?720][width<=?1280]",
             f"{link}",
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
         )
         stdout, stderr = await proc.communicate()
-        return (1, stdout.decode().split("\n")[0]) if stdout else (0, stderr.decode())
+        if stdout:
+            return 1, stdout.decode().split("\n")[0]
+        else:
+            return 0, stderr.decode()
 
     async def playlist(
         self, link, limit, user_id, videoid: Union[bool, str] = None
@@ -197,34 +204,42 @@ class YouTubeAPI:
         return track_details, vidid
 
     async def formats(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
-        
-        ydl_opts = {"quiet": True}
-        with YoutubeDL(ydl_opts) as ydl_instance:
-            try:
-                info = ydl_instance.extract_info(link, download=False)
-                formats_available = []
-                for format in info["formats"]:
-                    if "dash" not in str(format["format"]).lower():
-                        formats_available.append(
-                            {
-                                "format": format["format"],
-                                "filesize": format["filesize"],
-                                "format_id": format["format_id"],
-                                "ext": format["ext"],
-                                "format_note": format["format_note"],
-                                "yturl": link,
-                            }
-                        )
-            except Exception as e:
-                return [], link
-            return formats_available, link
-
+        ytdl_opts = {"quiet": True}
+        ydl = yt_dlp.YoutubeDL(ytdl_opts)
+        with ydl:
+            formats_available = []
+            r = ydl.extract_info(link, download=False)
+            for format in r["formats"]:
+                try:
+                    str(format["format"])
+                except:
+                    continue
+                if not "dash" in str(format["format"]).lower():
+                    try:
+                        format["format"]
+                        format["filesize"]
+                        format["format_id"]
+                        format["ext"]
+                        format["format_note"]
+                    except:
+                        continue
+                    formats_available.append(
+                        {
+                            "format": format["format"],
+                            "filesize": format["filesize"],
+                            "format_id": format["format_id"],
+                            "ext": format["ext"],
+                            "format_note": format["format_note"],
+                            "yturl": link,
+                        }
+                    )
+        return formats_available, link
 
     async def slider(
         self,
@@ -270,7 +285,7 @@ class YouTubeAPI:
                 "quiet": True,
                 "no_warnings": True,
             }
-            x = YoutubeDL(ydl_optssx)
+            x = yt_dlp.YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
             xyz = os.path.join(
                 "downloads", f"{info['id']}.{info['ext']}"
@@ -282,14 +297,14 @@ class YouTubeAPI:
 
         def video_dl():
             ydl_optssx = {
-                "format": "bestvideo+bestaudio",
+                "format": "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio[ext=m4a])",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
             }
-            x = YoutubeDL(ydl_optssx)
+            x = yt_dlp.YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
             xyz = os.path.join(
                 "downloads", f"{info['id']}.{info['ext']}"
@@ -312,7 +327,7 @@ class YouTubeAPI:
                 "prefer_ffmpeg": True,
                 "merge_output_format": "mp4",
             }
-            x = YoutubeDL(ydl_optssx)
+            x = yt_dlp.YoutubeDL(ydl_optssx)
             x.download([link])
 
         def song_audio_dl():
@@ -333,7 +348,7 @@ class YouTubeAPI:
                     }
                 ],
             }
-            x = YoutubeDL(ydl_optssx)
+            x = yt_dlp.YoutubeDL(ydl_optssx)
             x.download([link])
 
         if songvideo:
@@ -355,7 +370,7 @@ class YouTubeAPI:
                     "yt-dlp",
                     "-g",
                     "-f",
-                    "best",
+                    "best[height<=?720][width<=?1280]",
                     f"{link}",
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
