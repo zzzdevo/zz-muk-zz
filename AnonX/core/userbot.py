@@ -1,3 +1,13 @@
+#
+# Copyright (C) 2021-present by TeamYukki@Github, < https://github.com/TeamYukki >.
+#
+# This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
+#
+# All rights reserved.
+#
+
 import sys
 
 from pyrogram import Client
@@ -13,35 +23,35 @@ assistantids = []
 class Userbot(Client):
     def __init__(self):
         self.one = Client(
-            "AnonXAss1",
+            "YukkiString1",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING1),
             no_updates=True,
         )
         self.two = Client(
-            "AnonXAss2",
+            "YukkiString2",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
             no_updates=True,
         )
         self.three = Client(
-            "AnonXAss3",
+            "YukkiString3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
             no_updates=True,
         )
         self.four = Client(
-            "AnonXAss14",
+            "YukkiString4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
             no_updates=True,
         )
         self.five = Client(
-            "AnonXAss5",
+            "YukkiString5",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
@@ -53,9 +63,9 @@ class Userbot(Client):
         if config.STRING1:
             await self.one.start()
             try:
-                await self.one.join_chat("mgimt")
-                await self.one.join_chat("xv7amo")
-                await self.one.join_chat("iqsupp")
+                await self.five.join_chat("IQSUPP")
+                await self.five.join_chat("MGIMT")
+                await self.five.join_chat("XV7AMO")
             except:
                 pass
             assistants.append(1)
@@ -73,9 +83,7 @@ class Userbot(Client):
             self.one.id = get_me.id
             assistantids.append(get_me.id)
             if get_me.last_name:
-                self.one.name = (
-                    get_me.first_name + " " + get_me.last_name
-                )
+                self.one.name = f"{get_me.first_name} {get_me.last_name}"
             else:
                 self.one.name = get_me.first_name
             LOGGER(__name__).info(
@@ -84,9 +92,9 @@ class Userbot(Client):
         if config.STRING2:
             await self.two.start()
             try:
-                await self.two.join_chat("mgimt")
-                await self.two.join_chat("xv7amo")
-                await self.two.join_chat("iqsupp")
+                await self.five.join_chat("IQSUPP")
+                await self.five.join_chat("MGIMT")
+                await self.five.join_chat("XV7AMO")
             except:
                 pass
             assistants.append(2)
@@ -104,9 +112,7 @@ class Userbot(Client):
             self.two.id = get_me.id
             assistantids.append(get_me.id)
             if get_me.last_name:
-                self.two.name = (
-                    get_me.first_name + " " + get_me.last_name
-                )
+                self.two.name = f"{get_me.first_name} {get_me.last_name}"
             else:
                 self.two.name = get_me.first_name
             LOGGER(__name__).info(
@@ -115,9 +121,9 @@ class Userbot(Client):
         if config.STRING3:
             await self.three.start()
             try:
-                await self.three.join_chat("mgimt")
-                await self.three.join_chat("xv7amo")
-                await self.three.join_chat("iqsupp")
+                await self.five.join_chat("IQSUPP")
+                await self.five.join_chat("MGIMT")
+                await self.five.join_chat("XV7AMO")
             except:
                 pass
             assistants.append(3)
@@ -135,9 +141,7 @@ class Userbot(Client):
             self.three.id = get_me.id
             assistantids.append(get_me.id)
             if get_me.last_name:
-                self.three.name = (
-                    get_me.first_name + " " + get_me.last_name
-                )
+                self.three.name = f"{get_me.first_name} {get_me.last_name}"
             else:
                 self.three.name = get_me.first_name
             LOGGER(__name__).info(
@@ -146,9 +150,9 @@ class Userbot(Client):
         if config.STRING4:
             await self.four.start()
             try:
-                await self.four.join_chat("mgimt")
-                await self.four.join_chat("xv7amo")
-                await self.four.join_chat("iqsupp")
+                await self.five.join_chat("IQSUPP")
+                await self.five.join_chat("MGIMT")
+                await self.five.join_chat("XV7AMO")
             except:
                 pass
             assistants.append(4)
@@ -166,9 +170,7 @@ class Userbot(Client):
             self.four.id = get_me.id
             assistantids.append(get_me.id)
             if get_me.last_name:
-                self.four.name = (
-                    get_me.first_name + " " + get_me.last_name
-                )
+                self.four.name = f"{get_me.first_name} {get_me.last_name}"
             else:
                 self.four.name = get_me.first_name
             LOGGER(__name__).info(
@@ -177,9 +179,9 @@ class Userbot(Client):
         if config.STRING5:
             await self.five.start()
             try:
-                await self.five.join_chat("mgimt")
-                await self.five.join_chat("xv7amo")
-                await self.five.join_chat("iqsupp")
+                await self.five.join_chat("IQSUPP")
+                await self.five.join_chat("MGIMT")
+                await self.five.join_chat("XV7AMO")
             except:
                 pass
             assistants.append(5)
@@ -197,9 +199,7 @@ class Userbot(Client):
             self.five.id = get_me.id
             assistantids.append(get_me.id)
             if get_me.last_name:
-                self.five.name = (
-                    get_me.first_name + " " + get_me.last_name
-                )
+                self.five.name = f"{get_me.first_name} " + get_me.last_name
             else:
                 self.five.name = get_me.first_name
             LOGGER(__name__).info(
