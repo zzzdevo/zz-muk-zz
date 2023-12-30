@@ -1,3 +1,13 @@
+#
+# Copyright (C) 2021-present by TeamYukki@Github, < https://github.com/TeamYukki >.
+#
+# This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
+#
+# All rights reserved.
+#
+
 import logging
 from logging.handlers import RotatingFileHandler
 
@@ -17,6 +27,7 @@ logging.basicConfig(
 
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("pytgcalls").setLevel(logging.ERROR)
+logging.getLogger("ntgcalls").setLevel(logging.ERROR)
 logging.getLogger("httpx").setLevel(logging.ERROR)
 
 
