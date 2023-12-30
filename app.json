@@ -1,16 +1,17 @@
 {
-    "name": "ᴀɴᴏɴ ダ ᴍᴜsɪᴄ",
-    "description": "A Telegram Music Player Bot, written in Python with Pyrogram and Py-Tgcalls.",
-    "logo": "https://telegra.ph/file/56d1760224589ee370186.jpg",
+    "name": "Yukki Music Bot",
+    "description": "Telegram Group Calls streaming bot with some useful features, written in Python with Pyrogram and Py-Tgcalls. Supporting platforms like Youtube, Spotify, Resso, AppleMusic, Soundcloud and M3u8 Links.",
+    "logo": "https://telegra.ph/file/c0e014ff34f34d1056627.png",
     "keywords": [
     "python3",
     "telegram",
     "bot",
-    "AnonX",
-    "MusicBot",
+    "Yukki",
+    "YukkiMusicBot",
     "telegram-bot",
     "pyrogram"
     ],
+    "stack": "container",
     "env": {
       "API_ID": {
         "description": "Get this value from https://my.telegram.org",
@@ -82,17 +83,13 @@
         "value": "master",
         "required": true
       }
-    },
+     },
     "buildpacks": [
           {
               "url": "heroku/python"
           },
           {
-              "url": "heroku/nodejs"
-          },
-          {
               "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
           }
-      ],
-      "stack": "container"
+      ]
   }
